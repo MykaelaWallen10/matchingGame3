@@ -17,6 +17,7 @@
 		BB04F46C2B1F7C0600F9FABF /* matchingGame2Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB04F46B2B1F7C0600F9FABF /* matchingGame2Tests.swift */; };
 		BB04F4762B1F7C0600F9FABF /* matchingGame2UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB04F4752B1F7C0600F9FABF /* matchingGame2UITests.swift */; };
 		BB04F4782B1F7C0600F9FABF /* matchingGame2UITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB04F4772B1F7C0600F9FABF /* matchingGame2UITestsLaunchTests.swift */; };
+		BB631C892B2769BA00170C21 /* cardObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB631C882B2769BA00170C21 /* cardObject.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +52,7 @@
 		BB04F4712B1F7C0600F9FABF /* matchingGame2UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = matchingGame2UITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		BB04F4752B1F7C0600F9FABF /* matchingGame2UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = matchingGame2UITests.swift; sourceTree = "<group>"; };
 		BB04F4772B1F7C0600F9FABF /* matchingGame2UITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = matchingGame2UITestsLaunchTests.swift; sourceTree = "<group>"; };
+		BB631C882B2769BA00170C21 /* cardObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = cardObject.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,6 +106,7 @@
 				BB04F4512B1F7C0500F9FABF /* AppDelegate.swift */,
 				BB04F4532B1F7C0500F9FABF /* SceneDelegate.swift */,
 				BB04F4552B1F7C0500F9FABF /* ViewController.swift */,
+				BB631C882B2769BA00170C21 /* cardObject.swift */,
 				BB04F4572B1F7C0500F9FABF /* Main.storyboard */,
 				BB04F45D2B1F7C0600F9FABF /* Assets.xcassets */,
 				BB04F45F2B1F7C0600F9FABF /* LaunchScreen.storyboard */,
@@ -261,6 +264,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BB631C892B2769BA00170C21 /* cardObject.swift in Sources */,
 				BB04F4562B1F7C0500F9FABF /* ViewController.swift in Sources */,
 				BB04F45C2B1F7C0500F9FABF /* matchingGame2.xcdatamodeld in Sources */,
 				BB04F4522B1F7C0500F9FABF /* AppDelegate.swift in Sources */,

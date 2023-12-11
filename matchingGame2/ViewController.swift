@@ -15,6 +15,8 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     @IBOutlet weak var winLabel: UILabel!
     
     @IBOutlet weak var collectionViewOutlet: UICollectionView!
+    
+    var cards = [Card]()
     var c = UIColor(red: CGFloat.random(in: 0...1), green: CGFloat.random(in: 0...1), blue: CGFloat.random(in: 0...1), alpha: 1.0)
     var c2 = UIColor(red: CGFloat.random(in: 0...1), green: CGFloat.random(in: 0...1), blue: CGFloat.random(in: 0...1), alpha: 1.0)
     var c3 = UIColor(red: CGFloat.random(in: 0...1), green: CGFloat.random(in: 0...1), blue: CGFloat.random(in: 0...1), alpha: 1.0)
@@ -55,6 +57,8 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "myCell", for: indexPath) as UICollectionViewCell
         
+        
+        
         cell.backgroundColor = UIColor.purple
      
         
@@ -72,6 +76,8 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
             if let clicked = collectionView.cellForItem(at: indexPath){
           
                 clicked.backgroundColor = colors[indexPath.row]
+                cards[indexPath.row].matched = true
+                cards[indexPath.row].cardColor = colors[indexPath.row]
         
                 twoPicked.append(colors[indexPath.row])
                 twoIntPicked.append(indexPath.row + 1)
@@ -83,6 +89,8 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
                 
                     
                     if(twoPicked[0] == twoPicked[1]){
+                        cards[twoIntPicked[0]].matched = false
+                        cards[twoIntPicked[1]].matched = false
                         print("match")
                         s += 2
                         scoreLabel.text = "Score : \(s) "
@@ -155,13 +163,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
                                 
                                 
                             }
-                            
-                            
-                            
-                            
-                            
-                            
-                            
+               
                             
                             
                         }
