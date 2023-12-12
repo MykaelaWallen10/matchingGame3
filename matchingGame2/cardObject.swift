@@ -12,6 +12,7 @@ import UIKit
 struct Card{
     var matched : Bool
     var cardColor : UIColor
+ 
     
     
 }

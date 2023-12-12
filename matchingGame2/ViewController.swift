@@ -31,22 +31,27 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     var twoIntPicked = [Int]()
     
     override func viewDidLoad() {
+ 
+        super.viewDidLoad()
+        // Do any additional setup after loading the view.
+        
         
         collectionViewOutlet.dataSource = self
         collectionViewOutlet.delegate = self
         
+        for i in intPicked{
+            cards.append(Card(matched: false, cardColor: colors[i]))
+        }
+       
         
         
         
-        
-        super.viewDidLoad()
-        // Do any additional setup after loading the view.
     }
     
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         print("printing collection view")
-        return intPicked.count
+        return cards.count
       
         
     }
@@ -56,10 +61,16 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "myCell", for: indexPath) as UICollectionViewCell
+       
         
-        
-        
-        cell.backgroundColor = UIColor.purple
+        if( cards[indexPath.row].matched == false){
+            cell.backgroundColor = UIColor.purple
+            print("changing unmatched to purple ")
+        }
+        else{
+            cell.backgroundColor = cards[indexPath.row].cardColor
+            print("keeping color")
+        }
      
         
         
@@ -76,22 +87,25 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
             if let clicked = collectionView.cellForItem(at: indexPath){
           
                 clicked.backgroundColor = colors[indexPath.row]
-                cards[indexPath.row].matched = true
+                
                 cards[indexPath.row].cardColor = colors[indexPath.row]
         
                 twoPicked.append(colors[indexPath.row])
-                twoIntPicked.append(indexPath.row + 1)
-                
                 twoIntPicked.append(indexPath.row )
+                
+           
                 
                 if(x == 2 ){
                     print("second choice")
                 
                     
                     if(twoPicked[0] == twoPicked[1]){
-                        cards[twoIntPicked[0]].matched = false
-                        cards[twoIntPicked[1]].matched = false
                         print("match")
+                        cards[twoIntPicked[0]].matched = true
+                        print("the first card is true")
+                        cards[twoIntPicked[1]].matched = true
+                        print("the second card is true")
+                      
                         s += 2
                         scoreLabel.text = "Score : \(s) "
                         print(intPicked.count)
@@ -100,11 +114,16 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
                         for i in (0 ... 1).reversed(){
                             print("removing first and second")
                             intPicked.remove(at: i)
-                                
+
                             }
 
                         
+                        //WINNING
+                        
                         if(intPicked.count == 0 ){
+                            for i in intPicked{
+                                cards[i].matched = false
+                            }
                             collectionView.reloadData()
                             w += 1
                             winLabel.text = "Wins : \(w)"
@@ -129,12 +148,13 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
                                     print("shuffled new colors ")
                                     self.intPicked = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23]
                                     print("made intPicked")
+                                    for i in self.intPicked{
+                                        self.cards.append(Card(matched: false, cardColor: self.colors[i]))
+                                    }
                                     collectionView.reloadData()
                                     
                                 }
-                                
-                                
-                                
+                      
                                 //3 add action
                                 
                                 alert.addAction(okAction)
@@ -154,31 +174,17 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
                                 //3 add action
                                 
                                 alert.addAction(okAction)
-                                
-                            
-                                
+              
                                 //4 present alert controller
                                 
                                 present(alert, animated: true)
-                                
-                                
+                       
                             }
                
                             
                             
                         }
                        
-                        for i in (0 ... colors.count-1).reversed(){
-                            if(twoPicked[0] == colors[i] ){
-                                print("removing color from color array ")
-                                colors.remove(at: i)
-                                
-                            }
-                            
-
-                        }
-                            
-                         
                             
                             
                             for i in (0...twoPicked.count-1).reversed(){
