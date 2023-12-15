@@ -15,6 +15,8 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     
     @IBOutlet weak var winLabel: UILabel!
     
+    @IBOutlet weak var attemptsLabel: UILabel!
+    
     @IBOutlet weak var collectionViewOutlet: UICollectionView!
     
     var cards = [Card]()
@@ -22,9 +24,10 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     var c2 = UIColor(red: CGFloat.random(in: 0...1), green: CGFloat.random(in: 0...1), blue: CGFloat.random(in: 0...1), alpha: 1.0)
     var c3 = UIColor(red: CGFloat.random(in: 0...1), green: CGFloat.random(in: 0...1), blue: CGFloat.random(in: 0...1), alpha: 1.0)
     var s = 0
+    var a = 0
     var x = 0
     var r = 0
-    var w = 2
+    var w = 0
     var colors = [UIColor.black, UIColor.systemPink, UIColor.green, UIColor.blue, UIColor.gray, UIColor.magenta, UIColor.systemIndigo, UIColor.cyan, UIColor.systemTeal, UIColor.black, UIColor.systemPink, UIColor.green, UIColor.blue, UIColor.gray, UIColor.magenta, UIColor.systemIndigo, UIColor.cyan, UIColor.systemTeal    ]
     
     var twoPicked = [UIColor]()
@@ -117,6 +120,8 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
                             intPicked.remove(at: i)
 
                             }
+                        
+                     
 
                         
                         //WINNING
@@ -136,6 +141,9 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
                                 let okAction = UIAlertAction(title: "WOOHOO!!!", style: .default)
                                 let round2 = UIAlertAction(title: "Round 2", style: .default) { UIAlertAction in
                                     
+                                    for i in (0...self.colors.count-1).reversed(){
+                                        self.colors.remove(at: i)
+                                    }
                                     self.colors = [UIColor.black, UIColor.systemPink, UIColor.green, UIColor.blue, UIColor.gray, UIColor.magenta, UIColor.systemIndigo, UIColor.cyan, UIColor.systemTeal, UIColor.black, UIColor.systemPink, UIColor.green, UIColor.blue, UIColor.gray, UIColor.magenta, UIColor.systemIndigo, UIColor.cyan, UIColor.systemTeal  ]
                                     
                                     self.colors.append(self.c)
@@ -147,6 +155,10 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
                                     print("added in new colors")
                                     self.colors.shuffle()
                                     print("shuffled new colors ")
+                                   
+                                    for i in (0...self.cards.count-1).reversed(){
+                                        self.cards.remove(at: i)
+                                    }
                                     self.intPicked = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23]
                                     print("made intPicked")
                                     for i in self.intPicked{
@@ -209,7 +221,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
                         }
                       
                       
-                        
+                       
                     }
                 }
             }
@@ -217,6 +229,8 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         }
         
         if(x == 3){
+            a+=1
+            attemptsLabel.text = "Attempts: \(a)"
             x = 0
             
             print("reprinting the collection view")
