@@ -7,8 +7,9 @@
 
 import Foundation
 
-struct Player{
-    
-    
+struct Player : Encodable, Decodable{
+    var name : String
+    var attempts : Int
+    var score : Int
     
 }

@@ -9,5 +9,6 @@ import Foundation
 
 
 class AppData{
-    
+   static var defaults = UserDefaults.standard
+    static var thePeople = [Player]()
 }

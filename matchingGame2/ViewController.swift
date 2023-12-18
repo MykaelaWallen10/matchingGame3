@@ -11,6 +11,10 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
 
  // Hello!
     
+    
+    
+    @IBOutlet weak var nameOfPlayerOutlet: UILabel!
+    
     @IBOutlet weak var scoreLabel: UILabel!
     
     @IBOutlet weak var winLabel: UILabel!
@@ -23,26 +27,29 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     var c = UIColor(red: CGFloat.random(in: 0...1), green: CGFloat.random(in: 0...1), blue: CGFloat.random(in: 0...1), alpha: 1.0)
     var c2 = UIColor(red: CGFloat.random(in: 0...1), green: CGFloat.random(in: 0...1), blue: CGFloat.random(in: 0...1), alpha: 1.0)
     var c3 = UIColor(red: CGFloat.random(in: 0...1), green: CGFloat.random(in: 0...1), blue: CGFloat.random(in: 0...1), alpha: 1.0)
-    var s = 0
-    var a = 0
+    var scores = 0
+    var attemps = 0
     var x = 0
-    var r = 0
-    var w = 0
+    var fakeattempts = 0
+    var round = 0
+    var wins = 0
     var colors = [UIColor.black, UIColor.systemPink, UIColor.green, UIColor.blue, UIColor.gray, UIColor.magenta, UIColor.systemIndigo, UIColor.cyan, UIColor.systemTeal, UIColor.black, UIColor.systemPink, UIColor.green, UIColor.blue, UIColor.gray, UIColor.magenta, UIColor.systemIndigo, UIColor.cyan, UIColor.systemTeal    ]
     
     var twoPicked = [UIColor]()
     var intPicked = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17]
     var twoIntPicked = [Int]()
     
+    var person = "" 
+    
     override func viewDidLoad() {
- 
-        super.viewDidLoad()
-        // Do any additional setup after loading the view.
+ print("wtf is going on ")
+        super.viewDidLoad()        // Do any additional setup after loading the view.
         
-        
+        nameOfPlayerOutlet.text = person
         collectionViewOutlet.dataSource = self
         collectionViewOutlet.delegate = self
         
+        //colors.shuffle()
         for i in intPicked{
             cards.append(Card(matched: false, cardColor: colors[i]))
         }
@@ -110,8 +117,14 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
                         cards[twoIntPicked[1]].matched = true
                         print("the second card is true")
                       
-                        s += 2
-                        scoreLabel.text = "Score : \(s) "
+                        
+                        if(fakeattempts<=11){
+                            scores += 4
+                        }
+                            else{
+                            scores += 2
+                        }
+                        scoreLabel.text = "Score : \(scores) "
                         print(intPicked.count)
                         
                         
@@ -130,17 +143,18 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
                             for i in intPicked{
                                 cards[i].matched = false
                             }
+                            
                             collectionView.reloadData()
-                            w += 1
-                            winLabel.text = "Wins : \(w)"
-                            if(r == 0 ){
+                            wins += 1
+                            winLabel.text = "Wins : \(wins)"
+                            if(round == 0 ){
+                                print("winning!! score is \(scores) and attemps are \(attemps)")
                                 //1 create Alert controller
                                 let alert = UIAlertController(title: "CONGRATS", message: "YOU WON!!!!", preferredStyle: .alert)
                                 
-                                //2 create action
-                                let okAction = UIAlertAction(title: "WOOHOO!!!", style: .default)
+                              
                                 let round2 = UIAlertAction(title: "Round 2", style: .default) { UIAlertAction in
-                                    
+                                    self.fakeattempts = 0
                                     for i in (0...self.colors.count-1).reversed(){
                                         self.colors.remove(at: i)
                                     }
@@ -153,7 +167,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
                                     self.colors.append(self.c2)
                                     self.colors.append(self.c2)
                                     print("added in new colors")
-                                    self.colors.shuffle()
+                                   // self.colors.shuffle()
                                     print("shuffled new colors ")
                                    
                                     for i in (0...self.cards.count-1).reversed(){
@@ -170,20 +184,35 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
                       
                                 //3 add action
                                 
-                                alert.addAction(okAction)
+                          
                                 
                                 alert.addAction(round2)
                                 
                                 //present alert controller
                                 
                                 present(alert, animated: true)
-                                r=1
+                                round = 1
+                              
                             }
                             else{
-                                let alert = UIAlertController(title: "CONGRATS", message: "YOU WON!!!!", preferredStyle: .alert)
+                                
+                               
+                                let alert = UIAlertController(title: "Hooray", message: "YOU WON!!!!", preferredStyle: .alert)
                                 
                                 //2 create action
-                                let okAction = UIAlertAction(title: "WOOHOO!!!", style: .default)
+                                let okAction = UIAlertAction(title: "WOOHOO!!!", style: .default){ UIAlertAction in
+                                    print("the score is \(self.scores) and the attempts are \(self.attemps) ")
+                                    var human = Player(name: self.person, attempts: self.attemps, score: self.scores)
+                                    
+                                    AppData.thePeople.append(human)
+                                    
+                                    let encoder = JSONEncoder()
+                                    if let encoded = try? encoder.encode(AppData.thePeople){
+                                        AppData.defaults.set(encoded, forKey: "thePpl")
+                                    }
+
+                                    
+                                }
                                 //3 add action
                                 
                                 alert.addAction(okAction)
@@ -191,10 +220,12 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
                                 //4 present alert controller
                                 
                                 present(alert, animated: true)
-                       
+                            
+                                
+                               
                             }
                
-                            
+                         
                             
                         }
                        
@@ -229,8 +260,9 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         }
         
         if(x == 3){
-            a+=1
-            attemptsLabel.text = "Attempts: \(a)"
+            fakeattempts += 1
+            attemps+=1
+            attemptsLabel.text = "Attempts: \(attemps)"
             x = 0
             
             print("reprinting the collection view")
@@ -244,14 +276,12 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
             }
            
         }
-        
+      
        
-        
         
  
     }
     
-
 
 
 }
